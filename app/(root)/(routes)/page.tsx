@@ -1,5 +1,7 @@
 import { Categories } from "@/components/categories";
 import { SearchInput } from "@/components/search-input";
+import Companions from "@/components/companions";
+
 import prismadb from "@/lib/prismadb";
 
 interface RootPageProps{
@@ -18,6 +20,16 @@ export default async function Home({
       name: {
         search: searchParams.name
       }
+    },
+    orderBy:{
+      createdAt: 'desc'
+    },
+    include:{
+      _count:{
+        select:{
+          messages: true
+        }
+      }
     }
   })
   const categories = await prismadb.category.findMany()
@@ -25,6 +37,7 @@ export default async function Home({
       <div className="h-full p-4 space-y-2">
         <SearchInput/>
         <Categories data={categories}/>
+        <Companions data={data}/>
       </div>
   );
 }

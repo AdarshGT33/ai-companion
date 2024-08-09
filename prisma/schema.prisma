@@ -19,13 +19,13 @@ model Companion {
   id          String   @id @default(uuid())
   userId      String
   username    String
+  name        String   @db.Text
   src         String
   description String
   instruction String   @db.Text
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   categoryId  String
-  name        String   @db.Text
   seed        String   @db.Text
 
   category    Category @relation(fields: [categoryId], references: [id])
